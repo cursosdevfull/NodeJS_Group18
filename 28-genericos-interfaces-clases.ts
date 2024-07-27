@@ -1,8 +1,61 @@
+// Infrastructure
+interface Filter {
+  [prop: string]: string | number | boolean | object | any[];
+}
+
+class Database<Entity> {
+  constructor(host: string, user: string, pass: string, port: number) {}
+
+  orm() {
+    return {
+      put(entity: Entity) {},
+      update(entity: Entity) {
+        console.log("entity updated");
+      },
+      find(filter: Filter) {
+        return Math.random() > 0.5 ? true : false;
+      },
+    };
+  }
+}
+
+class BaseData<Entity> implements Repository<Entity> {
+  protected database = new Database<Entity>(
+    "localhost",
+    "user01",
+    "dios",
+    3306
+  );
+
+  add(entity: Entity) {
+    this.database.orm().put(entity);
+    console.log("entity added", entity);
+  }
+
+  update(entity: Entity) {
+    this.database.orm().update(entity);
+    console.log("entity updated", entity);
+  }
+
+  search(filter: Filter) {
+    return this.database.orm().find(filter);
+  }
+}
+
+class DataMedic extends BaseData<Medic> implements RepositoryMedic {
+  reportBySpecialty(specialty: string) {
+    return ["medic01", "medic02", "medic03"];
+  }
+}
+
 // Domain
 interface Repository<Entity> {
   add(entity: Entity): void;
   update(entity: Entity): void;
   search(filter: Filter): boolean;
+}
+
+interface RepositoryMedic {
   reportBySpecialty(specialty: string): string[];
 }
 
@@ -101,15 +154,12 @@ class BusinessUser extends BaseBusiness<User> {
 
     this.repository.add(user);
   }
-
-  report() {
-    return this.repository.reportBySpecialty("cualquier cosa");
-  }
 }
 
-class BusinessMedic extends BaseBusiness<Medic> {
+class BusinessMedic extends DataMedic {
+  private repository: Repository<Medic>;
   constructor(repository: Repository<Medic>) {
-    super(repository);
+    super();
   }
 
   insert(medic: Medic) {
@@ -123,50 +173,7 @@ class BusinessMedic extends BaseBusiness<Medic> {
   }
 
   generateReportBySpecialty(specialty: string) {
-    return this.repository.reportBySpecialty(specialty);
-  }
-}
-
-// Infrastructure
-interface Filter {
-  [prop: string]: string | number | boolean | object | any[];
-}
-
-class Database<Entity> {
-  constructor(host: string, user: string, pass: string, port: number) {}
-
-  orm() {
-    return {
-      put(entity: Entity) {},
-      update(entity: Entity) {
-        console.log("entity updated");
-      },
-      find(filter: Filter) {
-        return Math.random() > 0.5 ? true : false;
-      },
-    };
-  }
-}
-
-class BaseData<Entity> implements Repository<Entity> {
-  private database = new Database<Entity>("localhost", "user01", "dios", 3306);
-
-  add(entity: Entity) {
-    this.database.orm().put(entity);
-    console.log("entity added", entity);
-  }
-
-  update(entity: Entity) {
-    this.database.orm().update(entity);
-    console.log("entity updated", entity);
-  }
-
-  search(filter: Filter) {
-    return this.database.orm().find(filter);
-  }
-
-  reportBySpecialty(specialty: string) {
-    return ["medic01", "medic02", "medic03"];
+    return this.reportBySpecialty(specialty);
   }
 }
 
