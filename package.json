@@ -24,9 +24,13 @@
   },
   "homepage": "https://github.com/cursosdevfull/NodeJS_Group18#readme",
   "dependencies": {
-    "mongoose": "^8.5.1"
+    "express": "^4.19.2",
+    "mongoose": "^8.5.1",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "@types/express": "github:types/express",
+    "@types/uuid": "^10.0.0",
     "nodemon": "^3.1.4",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2"

@@ -1,20 +1,5 @@
-import http from "node:http";
-
-import app, { App } from "./app";
-
-class ServerBootstrap {
-  constructor(private readonly appPath: App) {}
-
-  init(): Promise<string> {
-    return new Promise((resolve, reject) => {
-      http
-        .createServer(this.appPath)
-        .listen(3000)
-        .on("listening", () => resolve(`Server is running on port 3000`))
-        .on("error", (error: Error) => reject(error));
-    });
-  }
-}
+import app from "./app";
+import { ServerBootstrap } from "./bootstrap/server.bootstrap";
 
 (async () => {
   const serverBootstrap = new ServerBootstrap(app);
