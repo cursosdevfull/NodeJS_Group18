@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 
-import { Product } from "./product";
-import { ShoppingCartItemVO } from "./shopping-cart-item.vo";
+import { Product } from "../entities/product";
+import { ShoppingCartItemVO } from "../value-objects/shopping-cart-item.vo";
 
 /* type Product = {
   productId: string;
@@ -57,6 +57,10 @@ export class ShoppingCart {
     const itemsVO = new ShoppingCartItemVO(props.items);
     this.items = itemsVO.value;
     this.updatedAt = new Date();
+  }
+
+  delete() {
+    this.deletedAt = new Date();
   }
 
   clone() {

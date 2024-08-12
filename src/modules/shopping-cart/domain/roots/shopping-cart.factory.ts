@@ -1,7 +1,7 @@
-import { Product } from "./product";
+import { Product } from "../entities/product";
+import { ShoppingCartIdVO } from "../value-objects/shopping-cart-id.vo";
+import { ShoppingCartItemVO } from "../value-objects/shopping-cart-item.vo";
 import { CartProperties, ShoppingCart } from "./shopping-cart";
-import { ShoppingCartIdVO } from "./shopping-cart-id.vo";
-import { ShoppingCartItemVO } from "./shopping-cart-item.vo";
 
 export class ShoppingCartFactory {
   static create(props: CartProperties): ShoppingCart {
@@ -36,3 +36,5 @@ newCart.update({
     new Product("509c74bb-c49d-49bb-9b83-6b2551f73b5c", 1, 100, new Date()),
   ],
 });
+
+console.log(cart);

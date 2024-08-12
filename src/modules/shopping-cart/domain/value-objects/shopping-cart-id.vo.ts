@@ -1,14 +1,11 @@
 import { validate } from "uuid";
 
-export class ShoppingCartIdVO {
-  private readonly _value: string;
+import { BaseVO } from "../../../../core/value-objects/base.vo";
 
+export class ShoppingCartIdVO extends BaseVO<string> {
   constructor(value: string) {
+    super();
     if (!validate(value)) throw "Invalid cartId";
     this._value = value;
-  }
-
-  get value() {
-    return this._value;
   }
 }
