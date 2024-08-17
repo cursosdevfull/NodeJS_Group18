@@ -1,13 +1,8 @@
-import { Products, ShoppingCart } from "../domain/roots/shopping-cart";
-
-type Repository = {
-  getOne: (cartId: string) => Promise<ShoppingCart | null>;
-  getAvailableProductsInCart: (products: Products) => Promise<Products>;
-  update: (cart: ShoppingCart) => Promise<void>;
-};
+import { ShoppingCartRepository } from "../domain/repositories/shopping-cart.repository";
+import { ShoppingCart } from "../domain/roots/shopping-cart";
 
 export class ShoppingCartUpdateApplication {
-  constructor(private readonly repository: Repository) {}
+  constructor(private readonly repository: ShoppingCartRepository) {}
 
   async execute(cartId: string, cart: ShoppingCart) {
     // Get cart by id

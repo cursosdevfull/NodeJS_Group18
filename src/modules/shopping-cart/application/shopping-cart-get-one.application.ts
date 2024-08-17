@@ -1,11 +1,7 @@
-import { ShoppingCart } from "../domain/roots/shopping-cart";
-
-type Repository = {
-  getOne: (cartId: string) => Promise<ShoppingCart | null>;
-};
+import { ShoppingCartRepository } from "../domain/repositories/shopping-cart.repository";
 
 export class ShoppingCartGetOneApplication {
-  constructor(private readonly repository: Repository) {}
+  constructor(private readonly repository: ShoppingCartRepository) {}
 
   async execute(cartId: string) {
     // Get cart by id not deleted

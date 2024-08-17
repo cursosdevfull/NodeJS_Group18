@@ -1,32 +1,9 @@
-type Repository = {
-  getAvailableProductsInCart: (products: Products) => Promise<Products>;
-  insertCart: (cart: ShoppingCart) => Promise<void>;
-};
-export type Repository = {
-  getOne: (cartId: string) => Promise<ShoppingCart | null>;
-  delete: (cart: ShoppingCart) => Promise<void>;
-};
-type Repository = {
-  getAll: () => Promise<ShoppingCart[]>;
+import { BaseRepository } from "../../../../core/domain/repositories/base.repository";
+import { Products, ShoppingCart } from "../roots/shopping-cart";
+
+type ShoppingCartAdditionalRepository = {
+  getAvailableProductsInCart(products: Products): Promise<Products>;
 };
 
-type ResultPage<T> = {
-  data: T[];
-  total: number;
-  page: number;
-  limit: number;
-};
-
-type Repository = {
-  getByPage: (page: number, limit: number) => Promise<ResultPage<ShoppingCart>>;
-};
-
-type Repository = {
-  getOne: (cartId: string) => Promise<ShoppingCart | null>;
-};
-
-type Repository = {
-  getOne: (cartId: string) => Promise<ShoppingCart | null>;
-  getAvailableProductsInCart: (products: Products) => Promise<Products>;
-  update: (cart: ShoppingCart) => Promise<void>;
-};
+export type ShoppingCartRepository = ShoppingCartAdditionalRepository &
+  BaseRepository<ShoppingCart>;

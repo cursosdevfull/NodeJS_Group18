@@ -1,18 +1,7 @@
-import { ShoppingCart } from "../domain/roots/shopping-cart";
-
-type ResultPage<T> = {
-  data: T[];
-  total: number;
-  page: number;
-  limit: number;
-};
-
-type Repository = {
-  getByPage: (page: number, limit: number) => Promise<ResultPage<ShoppingCart>>;
-};
+import { ShoppingCartRepository } from "../domain/repositories/shopping-cart.repository";
 
 export class ShoppingCartGetByPageApplication {
-  constructor(private readonly repository: Repository) {}
+  constructor(private readonly repository: ShoppingCartRepository) {}
 
   async execute(page: number, limit: number) {
     // Validate if the page and limit are valid

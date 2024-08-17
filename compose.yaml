@@ -1,0 +1,19 @@
+services:
+  mysql-server:
+    image: mysql:8
+    container_name: mysql-server
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 12345
+    ports:
+      - "4000:3306"
+
+  mysql-client:
+    image: phpmyadmin/phpmyadmin
+    container_name: mysql-client
+    environment:
+      PMA_ARBITRARY: 1
+    ports:
+      - "8080:80"

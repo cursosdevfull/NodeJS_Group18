@@ -1,27 +1,35 @@
+import { ShoppingCartRepository } from "../domain/repositories/shopping-cart.repository";
 import { Products, ShoppingCart } from "../domain/roots/shopping-cart";
 
-type Repository = {
-  getAvailableProductsInCart: (products: Products) => Promise<Products>;
-  insertCart: (cart: ShoppingCart) => Promise<void>;
-};
-
 export class ShoppingCarAddApplication {
-  private repository: Repository;
+  constructor(private readonly repository: ShoppingCartRepository) {}
 
-  constructor(repository: Repository) {
-    this.repository = repository;
+  private async getProductsAvailablesInStore(products: Products) {
+    return this.repository.getAvailableProductsInCart(products);
+  }
+
+  private getProductsUpdatedInCart(
+    productsAvailablesInCart: Products,
+    productsInCart: Products
+  ) {
+    return productsAvailablesInCart.length < productsInCart.length
+      ? productsAvailablesInCart
+      : productsInCart;
   }
 
   async execute(cart: ShoppingCart) {
-    // Validate if the products are available
-    const availableProducts: Products =
-      await this.repository.getAvailableProductsInCart(cart.properties.items);
-    // Save the available products in the cart
-    if (availableProducts.length < cart.properties.items.length) {
-      const originalCart = cart.clone();
-      cart.update({ items: availableProducts });
-    }
+    const productsInCart = cart.properties.items;
+    const productsAvailablesInStore = await this.getProductsAvailablesInStore(
+      productsInCart
+    );
 
-    return this.repository.insertCart(cart);
+    const productsAvailablesForCart = this.getProductsUpdatedInCart(
+      productsAvailablesInStore,
+      productsInCart
+    );
+
+    cart.update({ items: productsAvailablesForCart });
+
+    return this.repository.insert(cart);
   }
 }
