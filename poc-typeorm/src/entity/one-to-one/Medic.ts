@@ -1,8 +1,8 @@
 import {
   Column,
   Entity,
-  JoinTable,
-  ManyToMany,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 
@@ -22,13 +22,7 @@ export class MedicEntity {
   @Column({ type: "varchar", length: 10 })
   cmp: string;
 
-  @Column({ type: "varchar", length: 50, nullable: true })
-  email: string;
-
-  @Column({ type: "int" })
-  age: number;
-
-  @ManyToMany(() => SpecialtyEntity, (specialty) => specialty.medics)
-  @JoinTable()
-  specialties: SpecialtyEntity[];
+  @OneToOne(() => SpecialtyEntity, (specialty) => specialty.medic)
+  @JoinColumn()
+  specialty: SpecialtyEntity;
 }

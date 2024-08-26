@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 import { MedicEntity } from "./Medic";
 
@@ -13,8 +13,6 @@ export class SpecialtyEntity {
   @Column({ type: "varchar", length: 50 })
   description: string;
 
-  @ManyToMany(() => MedicEntity, (medic) => medic.specialties, {
-    cascade: true,
-  })
+  @OneToMany(() => MedicEntity, (medic) => medic.specialty, { cascade: true })
   medics: MedicEntity[];
 }

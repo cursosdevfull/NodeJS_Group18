@@ -1,10 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 import { SpecialtyEntity } from "./Specialty";
 
@@ -28,7 +22,6 @@ export class MedicEntity {
   @Column({ type: "int" })
   age: number;
 
-  @ManyToMany(() => SpecialtyEntity, (specialty) => specialty.medics)
-  @JoinTable()
-  specialties: SpecialtyEntity[];
+  @ManyToOne(() => SpecialtyEntity, (specialty) => specialty.medics)
+  specialty: SpecialtyEntity;
 }
