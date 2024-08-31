@@ -19,7 +19,7 @@ export class MedicEntity {
   @Column({ type: "varchar", length: 50 })
   lastname: string;
 
-  @Column({ type: "varchar", length: 10 })
+  @Column({ type: "varchar", length: 10, unique: true })
   cmp: string;
 
   @Column({ type: "varchar", length: 50, nullable: true })
