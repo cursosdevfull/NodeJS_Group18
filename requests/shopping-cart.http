@@ -1,0 +1,25 @@
+### Get
+GET http://localhost:3000/shopping-cart
+
+### Post
+POST http://localhost:3000/shopping-cart
+Content-Type: application/json
+
+{
+    "cartId": "07f27d3d-180c-47ac-a80b-5ad52f6819e4",
+    "items": [
+        {
+            "productId": "a2cc78c8-0717-4d5a-a01e-921fd4f7d808",
+            "quantity": 1,
+            "price": 100
+        },
+        {
+            "productId": "ad025d7b-0270-4099-8dcd-25d8bd7b5cdc",
+            "quantity": 1,
+            "price": 100
+        }
+    ]
+}
+
+### Get one
+get http://localhost:3000/shopping-cart/07f27d3d-180c-47ac-a80b-5ad52f6819e4

@@ -1,4 +1,3 @@
-import { Product } from "../entities/product";
 import { ShoppingCartIdVO } from "../value-objects/shopping-cart-id.vo";
 import { ShoppingCartItemVO } from "../value-objects/shopping-cart-item.vo";
 import { CartProperties, ShoppingCart } from "./shopping-cart";
@@ -20,21 +19,3 @@ export class ShoppingCartFactory {
 
   private constructor() {}
 }
-
-const cart = ShoppingCartFactory.create({
-  cartId: "4058875a-90ec-4047-b417-d7c91959ba26",
-  items: [
-    new Product("509c74bb-c49d-49bb-9b83-6b2551f73b5c", 1, 100, new Date()),
-    new Product("50d9c789-4de3-4eb8-9471-5966e416236e", 2, 200, new Date()),
-    new Product("fdc60a92-63a0-476f-9058-6e00be1c2d5d", 3, 300, new Date()),
-  ],
-});
-
-const newCart = cart.clone();
-newCart.update({
-  items: [
-    new Product("509c74bb-c49d-49bb-9b83-6b2551f73b5c", 1, 100, new Date()),
-  ],
-});
-
-console.log(cart);

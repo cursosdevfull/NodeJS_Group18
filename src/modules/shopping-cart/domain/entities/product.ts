@@ -27,4 +27,15 @@ export class Product {
     this.updatedAt = updatedAt;
     this.deletedAt = deletedAt;
   }
+
+  get properties() {
+    return {
+      productId: this.productId,
+      quantity: this.quantity,
+      price: this.price,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+      deletedAt: this.deletedAt,
+    };
+  }
 }
