@@ -2,7 +2,8 @@ import express, { Request, Response } from "express";
 
 import { DatabaseBootstrap } from "./bootstrap/database.bootstrap";
 import { ResponseInterceptor } from "./core/interceptors/response.interceptor";
-import ShoppingCartRoutes from "./modules/shopping-cart/presentation/shopping-cart.routes";
+import ShoppingCartRouter from "./modules/shopping-cart/presentation/shopping-cart.routes";
+import UserRouter from "./modules/user/infrastructure/express/user.routes";
 
 class App {
   readonly app: express.Application;
@@ -36,7 +37,8 @@ class App {
   }
 
   mountRoutes() {
-    this.app.use("/shopping-cart", ShoppingCartRoutes);
+    this.app.use("/user", UserRouter);
+    this.app.use("/shopping-cart", ShoppingCartRouter);
   }
 }
 
