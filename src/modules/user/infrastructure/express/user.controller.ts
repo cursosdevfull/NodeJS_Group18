@@ -4,6 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 import { Crypt } from "../../../../core/crypt/crypt";
 import { ApplicationException } from "../../application/exceptions/application.exception";
 import { UserAddApplication } from "../../application/user-add.application";
+import { UserDeleteApplication } from "../../application/user-delete.application";
+import { UserGetAllApplication } from "../../application/user-get-all.application";
+import { UserGetByPageApplication } from "../../application/user-get-by-page.application";
+import { UserGetOneApplication } from "../../application/user-get-one.application";
 import { UserUpdateApplication } from "../../application/user-update.application";
 import { UserProps, UserUpdateProps } from "../../domain/roots/user";
 import { UserFactory } from "../../domain/roots/user.factory";
@@ -14,7 +18,11 @@ import { RolesVO } from "../../domain/value-objects/roles.vo";
 export class UserController {
   constructor(
     private readonly userAddApplication: UserAddApplication,
-    private readonly userUpdateApplication: UserUpdateApplication
+    private readonly userUpdateApplication: UserUpdateApplication,
+    private readonly userDeleteApplication: UserDeleteApplication,
+    private readonly userGetAllApplication: UserGetAllApplication,
+    private readonly userGetOneApplication: UserGetOneApplication,
+    private readonly userGetByPageApplication: UserGetByPageApplication
   ) {}
 
   async addUser(req: Request, res: Response) {
@@ -112,6 +120,87 @@ export class UserController {
         message: userUpdateResult.error.message,
         name: userUpdateResult.error.name,
         stack: userUpdateResult.error.stack,
+      });
+    }
+  }
+
+  async deleteUser(req: Request, res: Response) {
+    const { id } = req.params;
+
+    const userDeleteResult = await this.userDeleteApplication.execute(
+      Number(id)
+    );
+
+    if (userDeleteResult.isOk()) {
+      res.status(201).json(userDeleteResult.value);
+    } else {
+      const error: unknown = userDeleteResult.error;
+      let statusCode;
+      if (error instanceof ApplicationException) {
+        statusCode = 400;
+      } else {
+        statusCode = 500;
+      }
+
+      res.status(statusCode).json({
+        message: userDeleteResult.error.message,
+        name: userDeleteResult.error.name,
+        stack: userDeleteResult.error.stack,
+      });
+    }
+  }
+
+  async getAllUser(req: Request, res: Response) {
+    const userGetAllResult = await this.userGetAllApplication.execute();
+
+    if (userGetAllResult.isOk()) {
+      res.status(201).json(userGetAllResult.value);
+    } else {
+      res.status(500).json({
+        message: userGetAllResult.error.message,
+        name: userGetAllResult.error.name,
+        stack: userGetAllResult.error.stack,
+      });
+    }
+  }
+
+  async getOneUser(req: Request, res: Response) {
+    const { id } = req.params;
+    const userGetOneResult = await this.userGetOneApplication.execute(+id);
+
+    if (userGetOneResult.isOk()) {
+      res.status(201).json(userGetOneResult.value);
+    } else {
+      const error: unknown = userGetOneResult.error;
+      let statusCode;
+      if (error instanceof ApplicationException) {
+        statusCode = 400;
+      } else {
+        statusCode = 500;
+      }
+
+      res.status(statusCode).json({
+        message: userGetOneResult.error.message,
+        name: userGetOneResult.error.name,
+        stack: userGetOneResult.error.stack,
+      });
+    }
+  }
+
+  async getByPageUser(req: Request, res: Response) {
+    const { page, pageSize } = req.query;
+    const userGetByPageResult = await this.userGetByPageApplication.execute(
+      +page,
+      +pageSize
+    );
+
+    if (userGetByPageResult.isOk()) {
+      res.status(201).json(userGetByPageResult.value);
+    } else {
+      res.status(500).json({
+        message: userGetByPageResult.error.message,
+        name: userGetByPageResult.error.name,
+        stack: userGetByPageResult.error.stack,
       });
     }
   }

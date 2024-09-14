@@ -19,7 +19,7 @@ export type UserOptionalProps = {
 
 export type UserProps = UserRequiredProps & Partial<UserOptionalProps>;
 
-export type UserUpdateProps = Omit<UserRequiredProps, "email">;
+export type UserUpdateProps = Partial<Omit<UserRequiredProps, "email">>;
 
 export class User extends Audit {
   private readonly userId: number;

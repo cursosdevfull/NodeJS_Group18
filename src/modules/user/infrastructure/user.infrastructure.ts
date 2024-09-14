@@ -72,6 +72,20 @@ export class UserInfrastructure implements UserRepository {
     }
   }
 
+  async findByRefreshToken(refreshToken: string): Promise<FindUserResult> {
+    try {
+      const repository = DatabaseBootstrap.dataSource.getRepository(UserEntity);
+      const data = await repository.findOne({
+        where: { refreshToken, deletedAt: IsNull() },
+        relations: ["roles"],
+      });
+      const user = data ? (UserDto.fromDataToDomain(data) as User) : undefined;
+      return ok(user);
+    } catch (error: unknown) {
+      return err(new UserFindDatabaseException());
+    }
+  }
+
   async findAll(): Promise<FindAllUserResult> {
     try {
       const repository = DatabaseBootstrap.dataSource.getRepository(UserEntity);

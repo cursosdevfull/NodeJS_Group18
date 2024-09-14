@@ -33,4 +33,12 @@ export class Parameters {
       ],
     };
   }
+
+  static get jwtSecret(): string {
+    return process.env.JWT_SECRET || "secret";
+  }
+
+  static get jwtAccessTokenExpiration(): string {
+    return process.env.JWT_ACCESS_TOKEN_EXPIRATION || "1h";
+  }
 }

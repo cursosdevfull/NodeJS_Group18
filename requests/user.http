@@ -3,9 +3,9 @@ post http://localhost:3000/user/v1
 Content-Type: application/json
 
 {
-    "firstname": "Carlos",
-    "lastname": "Gonzalez",
-    "email": "carlos3.gonzales@email.com",
+    "firstname": "Juan",
+    "lastname": "Pérez",
+    "email": "juan.perez@email.com",
     "password": "ElGigante2023#",
     "roles": [1,2]
 }
@@ -18,3 +18,17 @@ Content-Type: application/json
     "firstname": "Juan"
 
 }
+
+### Get All
+get http://localhost:3000/user/v1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdG5hbWUiOiJKdWFuIiwicm9sZXMiOlt7InJvbGVJZCI6MSwibmFtZSI6IkFETUlOIn0seyJyb2xlSWQiOjIsIm5hbWUiOiJPUEVSQVRPUiJ9XSwiaWF0IjoxNzI2MzM0NTkwLCJleHAiOjE3MjYzMzgxOTB9.KEeYYfXRPd9L0fmKrb3mL98Y2fkor1GQ0nM0P-fi6uo
+
+### Get One
+get http://localhost:3000/user/v1/17
+
+### Get By Page
+get http://localhost:3000/user/v1/page?page=0&pageSize=5
+
+### Delete
+delete http://localhost:3000/user/v1/18
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdG5hbWUiOiJKdWFuIiwicm9sZXMiOlt7InJvbGVJZCI6MSwibmFtZSI6IkFETUlOIn0seyJyb2xlSWQiOjIsIm5hbWUiOiJPUEVSQVRPUiJ9XSwiaWF0IjoxNzI2MzM0NTkwLCJleHAiOjE3MjYzMzgxOTB9.KEeYYfXRPd9L0fmKrb3mL98Y2fkor1GQ0nM0P-fi6uo
