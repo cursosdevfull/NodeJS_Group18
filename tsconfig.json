@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "outDir": "./dist",
+    "outDir": "./cache",
     "module": "CommonJS",
     "esModuleInterop": true,
     "strict": true,
@@ -12,5 +12,5 @@
     "experimentalDecorators": true
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist", "cache"]
 }

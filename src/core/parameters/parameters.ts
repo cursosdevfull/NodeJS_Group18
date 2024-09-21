@@ -1,6 +1,10 @@
-import path from "node:path";
+import path from 'node:path';
 
 export class Parameters {
+  static get environment(): string {
+    return process.env.NODE_ENV || "development";
+  }
+
   static get port(): number {
     return Number(process.env.PORT || 3000);
   }
@@ -20,7 +24,7 @@ export class Parameters {
       dbLogging = false;
     }
 
-    return {
+    const obj = {
       host: process.env.DB_HOST || "localhost",
       port: Number(process.env.DB_PORT || 3306),
       username: process.env.DB_USERNAME || "user",
@@ -32,6 +36,10 @@ export class Parameters {
         path.join(__dirname, "../..", "/**/entities/**/*.entity{.ts,.js}"),
       ],
     };
+
+    console.log("obj", obj);
+
+    return obj;
   }
 
   static get jwtSecret(): string {

@@ -1,4 +1,6 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from 'express';
+
+import { Parameters } from '../parameters/parameters';
 
 export enum STATUS_CODE_ID {
   INTERNAL_SERVER_ERROR = "INTERNAL_SERVER_ERROR",
@@ -41,7 +43,7 @@ export const ResponseInterceptor = (
           name: data.name,
           message: data.message,
           stack:
-            process.env.ENVIRONMENT !== "production" ? data.stack : undefined,
+            Parameters.environment !== "production" ? data.stack : undefined,
         },
       });
     }

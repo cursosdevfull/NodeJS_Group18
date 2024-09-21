@@ -17,3 +17,11 @@ services:
       PMA_ARBITRARY: 1
     ports:
       - "8080:80"
+
+  app:
+    build: .
+    container_name: app
+    depends_on:
+      - mysql-server
+    ports:
+      - "3000:3000"
